@@ -3,11 +3,12 @@ import sys
 
 def main(filename):
     file = open(filename, "r").readlines()
-    my_list = []
+    output_file = open (filename.split(".")[0] + "_output.txt","w")
     for line in file:
             result = check_line_for_nesting(line)
-            print result
-
+            output_file.write(result + "\n")
+    output_file.close()
+    
 def check_line_for_nesting(line):
     line = split_line_into_list(line)
     dict1 = {
@@ -36,38 +37,6 @@ def check_line_for_nesting(line):
     else:
         return "No " + str(len(line) + 1)
 
-# def check_line_for_nesting(line):
-#     line = split_line_into_list(line)
-#     curly_o = curly_c = paren_o = paren_c = square_o = square_c = star_o = star_c = greater_than = less_than = 0
-#     for i, c in enumerate(line):
-#         if c == "{":
-#             curly_o += 1
-#         if c == "(":
-#             paren_o += 1
-#         if c == "[":
-#             square_o += 1
-#         if c == "(*":
-#             star_o += 1
-#         if c == "<":
-#             less_than += 1
-#         if c == "}":
-#             curly_c += 1
-#         if c == ")":
-#             paren_c += 1
-#         if c == "]":
-#             square_c += 1
-#         if c == "*)":
-#             star_c += 1
-#         if c == ">":
-#             greater_than += 1
-        
-#         if curly_c > curly_o or square_c > square_o or paren_c > paren_o or star_c > star_o or greater_than > less_than:
-#             return "No " + str(i + 1)
-#     if curly_c == curly_o and paren_c == paren_o and square_c == square_o and star_o == star_c and greater_than == less_than:
-#         return "Yes"
-#     else:
-#         return "No " + str(len(line) + 1)
-
 def split_line_into_list(line):
     list1 = list(line)[:-1]
     i = 0
@@ -86,6 +55,6 @@ def split_line_into_list(line):
     return list2
 
 if __name__ == '__main__':
-    """checks fro properly nested brackets"""
+    """checks for properly nested brackets"""
     filename = sys.argv[1]
     main(filename)
